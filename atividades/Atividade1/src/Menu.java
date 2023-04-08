@@ -47,9 +47,9 @@ public class Menu {
                 }else if(opca == 3) {
                     pesquisar();
                 }else if(opca == 4) {
-                    
+                    listarEmpregados();
                 }else if(opca == 5) {
-                    
+                    listarClientes();
                 }else if(opca == 6) {
                     
                 }else {
@@ -177,12 +177,20 @@ public class Menu {
         String cpf = showInputDialog("Qual o CPF que deseja pesquisar? ");
         String aux = "Dados encontrados cadastrados no CPF '" + cpf + "':\n";
         if(Util.pegarPessoa(cpf) != null) {
-            aux += Util.pesquisarDados(cpf);
+            aux += Util.pesquisarCPF(cpf);
         }else{
             aux += "Nenhuma pessoa encontrada.";
         }
 
         showMessageDialog(null, aux);
 
+    }
+
+    public static void listarEmpregados() {
+        showMessageDialog(null, Util.listarEmpregados());
+    }
+
+    public static void listarClientes() {
+        showMessageDialog(null, Util.listarClientes());
     }
 }

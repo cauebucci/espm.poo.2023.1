@@ -35,7 +35,7 @@ public class Util {
         ListaPessoas.add(g);
     }
 
-    public static String pesquisarDados(String cpf) {
+    public static String pesquisarCPF(String cpf) {
         StringBuffer sb = new StringBuffer();
         Pessoa pessoa = pegarPessoa(cpf);
         if(pegarPessoa(cpf) != null) {
@@ -69,4 +69,61 @@ public class Util {
         return null;
     }
 
+    public static String listarEmpregados() {
+        StringBuffer sb = new StringBuffer();
+        int contador = 0;
+
+        for (Pessoa pessoa : ListaPessoas) {
+            if(pessoa instanceof Vendedor || pessoa instanceof Gerente) {
+                if(!(contador == 0)) {
+                    sb.append("\n\n─────────────────────────────────────\n"); 
+                } else {
+                    sb.append("Lista de empregados:\n");
+                }
+                sb.append("\nNome: " + pessoa.getNome());
+                sb.append("\nCPF: " + pessoa.getCpf());
+            }
+            if(pessoa instanceof Vendedor v) {
+                sb.append("\nTipo: Vendedor");
+                sb.append("\nTotal das Vendas: R$ " + String.format("%.2f", v.getTotalDasVendas())); 
+                sb.append("\nPorcentagem da Comissão: " +  String.format("%.2f", v.getComissao()) + "%");
+                sb.append("\n\nSalário: R$ " + String.format("%.2f", v.calcularSalario()));
+                contador++; 
+            }else if(pessoa instanceof Gerente g) {
+                sb.append("\nTipo: Gerente");
+                sb.append("\nSalário: R$ " + String.format("%.2f", g.getSalario()));
+                sb.append("\nPorcentagem do Bonus: "  + String.format("%.2f", g.getBonus()) + "%");
+                sb.append("\n\nBonus: R$ " + String.format("%.2f", g.calcularBonus()));
+                contador++;
+            }
+            
+        }
+        if(sb.isEmpty()) {
+            sb.append("Nenhum empregado cadastrado.");
+        }  
+        return sb.toString();
+    }
+
+    public static String listarClientes() {
+        StringBuffer sb = new StringBuffer();
+        int contador = 0;
+
+        for (Pessoa pessoa : ListaPessoas) {
+            if(pessoa instanceof Cliente c) {
+                if(!(contador == 0)) {
+                    sb.append("\n\n─────────────────────────────────────\n"); 
+                } else {
+                    sb.append("Lista de clientes:\n");
+                }
+                sb.append("\nNome: " + pessoa.getNome());
+                sb.append("\nCPF: " + pessoa.getCpf());
+                sb.append("\nValor da Dívida: R$ " + String.format("%.2f", c.getValorDaDivida())); 
+                contador++;
+            }
+        }
+        if(sb.isEmpty()) {
+            sb.append("Nenhum cliente cadastrado.");
+        }  
+        return sb.toString();
+    }
 }
