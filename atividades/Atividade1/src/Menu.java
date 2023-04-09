@@ -51,14 +51,14 @@ public class Menu {
                 }else if(opca == 5) {
                     listarClientes();
                 }else if(opca == 6) {
-                    
+                    excluir();
                 }else {
                     showMessageDialog(getRootFrame(), "Programa finalizado com sucesso!");
                     break;
                 }
             }while(programa);
         } catch (Exception e) {
-            showMessageDialog(null, "ERRO\n\nOuve um erro ao executar o programa!\n\nReporte o seguinte erro ao suporte:\n" + e);
+            showMessageDialog(null, "ERRO\n\nOuve um erro ao executar o programa!\n\nReporte-o ao suporte:\n" + e);
         }
     }
 
@@ -192,5 +192,33 @@ public class Menu {
 
     public static void listarClientes() {
         showMessageDialog(null, Util.listarClientes());
+    }
+
+    public static void excluir() {
+        String cpf = showInputDialog("Qual o CPF do usuário que deseja exclui? ");
+
+        if(Util.pegarPessoa(cpf) == null) {
+            showMessageDialog(null, "Nenhum usuário encontrado com o cpf '" + cpf + "'.");
+        }else {
+            String opc;
+            do {
+                opc = showInputDialog("Você tem certeza que deseja excluir o usuário cadastrado no CPF '" + cpf + "'?\n(Digite `sim` para confirmar e `não' para cancelar)");
+
+                if(!(opc.equalsIgnoreCase("sim") || opc.equalsIgnoreCase("não") || opc.equalsIgnoreCase("nao"))){
+                    showMessageDialog(null, "Opção inválida! \nDigite apenas `sim` para confirmar e `não' para cancelar");
+                }
+            } while (!(opc.equalsIgnoreCase("sim") || opc.equalsIgnoreCase("não") || opc.equalsIgnoreCase("nao")));
+
+            if(opc.equalsIgnoreCase("sim")) {
+                if(Util.excluir(cpf)) {
+                    showMessageDialog(null, "Usuário excluído com sucesso!");
+                }else {
+                    showMessageDialog(null, "Ocorreu um problema ao excluir este usuário.\nTente novamente!");
+                }
+            }else {
+                showMessageDialog(null, "Ação cancelada com sucesso!");
+            }
+        }
+        
     }
 }

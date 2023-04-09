@@ -126,4 +126,15 @@ public class Util {
         }  
         return sb.toString();
     }
+
+    public static boolean excluir(String cpf) {
+        
+        for (Pessoa pessoa : ListaPessoas) {
+            if(pessoa.getCpf().equalsIgnoreCase(cpf)) {
+                ListaPessoas.remove(pessoa);
+                return true;
+            }
+        }
+        return false;
+    }
 }
